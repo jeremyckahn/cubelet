@@ -1,7 +1,9 @@
 {
 
   "globals": {
-    "$": true
+    "$": true,
+    "cssTemplate": true,
+    "htmlTemplate": true
   },
 
   "asi": false,
