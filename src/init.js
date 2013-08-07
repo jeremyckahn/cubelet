@@ -5,6 +5,9 @@ var hasPerformedFirstTimeInit = false;
 /** @type {HTMLElement} */
 var cubeletInjectedStyle;
 
+/** @type {HTMLElement} */
+var $cubeletBaseHtmlFragment;
+
 
 // PRIVATE STATIC FUNCTIONS
 //
@@ -33,6 +36,7 @@ function firstTimeInit () {
   cubeletInjectedStyle.innerHTML =
       cssTemplate.replace(/__VENDOR__/g, getVendorPrefix());
   document.head.appendChild(cubeletInjectedStyle);
+  $cubeletBaseHtmlFragment = $(htmlTemplate);
 }
 
 
@@ -41,9 +45,11 @@ function firstTimeInit () {
 $.fn.cubeletInit = function () {
   if (!hasPerformedFirstTimeInit) {
     firstTimeInit();
+    hasPerformedFirstTimeInit = true;
   }
 
-  hasPerformedFirstTimeInit = true;
+  this._$cubeletHtmlFragment = $cubeletBaseHtmlFragment.clone();
+  this.append(this._$cubeletHtmlFragment);
 };
 
 
