@@ -11,10 +11,14 @@ var htmlTemplate = [
 
 
 var cssTemplate = [
-     '.cubelet-front  { __VENDOR__transform: rotateY(   0deg ) translateZ( 100px ); }'
+    '.cubelet-cube { '
+        ,'__VENDOR__transform: translateZ(-100px) rotateY(0deg) rotateX(0deg); '
+        ,'__VENDOR__transform-style: preserve-3d;'
+        ,'height: 100%; width: 100%; }'
+    ,'.cubelet-front  { __VENDOR__transform: rotateY(   0deg ) translateZ( 100px ); }'
     ,'.cubelet-back   { __VENDOR__transform: rotateX( 180deg ) translateZ( 100px ); }'
     ,'.cubelet-right  { __VENDOR__transform: rotateY(  90deg ) translateZ( 100px ); }'
     ,'.cubelet-left   { __VENDOR__transform: rotateY( -90deg ) translateZ( 100px ); }'
     ,'.cubelet-top    { __VENDOR__transform: rotateX(  90deg ) translateZ( 100px ); }'
     ,'.cubelet-bottom { __VENDOR__transform: rotateX( -90deg ) translateZ( 100px ); }'
-].join('');
+].join('\n');
