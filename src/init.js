@@ -1,3 +1,8 @@
+// CONSTANTS
+//
+var PERSPECTIVE_PX = 1000;
+
+
 // PRIVATE STATIC VARIABLES
 //
 var hasPerformedFirstTimeInit = false;
@@ -14,21 +19,27 @@ var $cubeletBaseHtmlFragment;
 /*!
  * @return {string}
  */
-function getVendorPrefix () {
+var getVendorPrefix = function () {
   var style = document.body.style;
+  var prefix;
 
   if ('-webkit-transform' in style) {
-    return '-webkit-';
+    prefix = '-webkit-';
   } else if ('-moz-transform' in style) {
-    return '-moz-';
+    prefix = '-moz-';
   } else if ('-ms-transform' in style) {
-    return '-ms-';
+    prefix = '-ms-';
   } else if ('-o-transform' in style) {
-    return '-o-';
+    prefix = '-o-';
   }
 
-  return '';
-}
+  // MEMOIZATION!
+  getVendorPrefix = function () {
+    return prefix;
+  };
+
+  return prefix;
+};
 
 
 function firstTimeInit () {
@@ -42,6 +53,9 @@ function firstTimeInit () {
 
 // JQUERY METHODS
 //
+/**
+ * @return {jQuery}
+ */
 $.fn.cubeletInit = function () {
   if (!hasPerformedFirstTimeInit) {
     firstTimeInit();
@@ -50,6 +64,25 @@ $.fn.cubeletInit = function () {
 
   this._$cubeletHtmlFragment = $cubeletBaseHtmlFragment.clone();
   this.append(this._$cubeletHtmlFragment);
+
+  // TODO: Make this value configurable.
+  this.cubeletSetSize(200);
+  this.css(getVendorPrefix() + 'perspective', PERSPECTIVE_PX);
+
+  return this;
+};
+
+
+/**
+ * @param {number} pixelSize The height and width in pixels that the cube
+ * should have.
+ * @return {jQuery}
+ */
+$.fn.cubeletSetSize = function (pixelSize) {
+  return this.css({
+    'height': pixelSize + 'px'
+    ,'width': pixelSize + 'px'
+  });
 };
 
 
