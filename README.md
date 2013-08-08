@@ -1,5 +1,7 @@
 # Vague API ideas
 
+## Don't use this widget yet!  It's not done!
+
 ````javascript
 var $cubelet = $('.cubelet');
 $cubelet.cubeletInit();

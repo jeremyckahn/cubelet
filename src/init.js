@@ -62,11 +62,15 @@ $.fn.cubeletInit = function () {
     hasPerformedFirstTimeInit = true;
   }
 
+  this.cubeletCoordinates_ = { x: 0, y:0, z:0 };
+
   this._$cubeletHtmlFragment = $cubeletBaseHtmlFragment.clone();
   this.append(this._$cubeletHtmlFragment);
+  this._$cubeletCube = this.find('.cubelet-cube');
 
   // TODO: Make this value configurable.
   this.cubeletSetSize(200);
+  this.cubeletSetCoords(this.cubeletCoordinates_);
   this.css(getVendorPrefix() + 'perspective', PERSPECTIVE_PX);
 
   return this;
@@ -74,8 +78,7 @@ $.fn.cubeletInit = function () {
 
 
 /**
- * @param {number} pixelSize The height and width in pixels that the cube
- * should have.
+ * @param {number} pixelSize The height and width in pixels that the cube should have.
  * @return {jQuery}
  */
 $.fn.cubeletSetSize = function (pixelSize) {
@@ -86,10 +89,33 @@ $.fn.cubeletSetSize = function (pixelSize) {
 };
 
 
-$.fn.cubeletGetCoords = function () {};
+/**
+ * Get the current rotation coordinates of the cube.
+ * @return {{x: number, y: number, z: number}}
+ */
+$.fn.cubeletGetCoords = function () {
+  return $.extend({}, this.cubeletCoordinates_);
+};
 
 
-$.fn.cubeletSetCoords = function () {};
+/**
+ * Set the rotation coordinates of the cube.
+ * @param {{x: number=, y: number=, z: number=}} The coordinates to set on the cube.  You can supply all coordinates or only the ones you want to modify.
+ * @return {jQuery}
+ */
+$.fn.cubeletSetCoords = function (coordinates) {
+  var cubeletCoordinates = this.cubeletCoordinates_;
+  $.extend(cubeletCoordinates, coordinates);
+
+  var transformString =
+    'rotateX(' + cubeletCoordinates.x
+    + 'deg) rotateY(' + cubeletCoordinates.y
+    + 'deg) rotateZ(' + cubeletCoordinates.z
+    + 'deg)';
+  this._$cubeletCube.css(getVendorPrefix() + 'transform', transformString);
+
+  return this;
+};
 
 
 $.fn.cubeletEnableEdit = function () {};
