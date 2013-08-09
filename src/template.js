@@ -17,9 +17,9 @@ var cssTemplate = [
     ,'  height: 100%; width: 100%; }'
     ,'.cubelet-cube figure { border: solid 1px #000; margin: 0; position: absolute; height: 100%; width: 100%; }'
     ,'.cubelet-front  { __VENDOR__transform: rotateY(   0deg ) translateZ( 100px ); }'
-    ,'.cubelet-back   { __VENDOR__transform: rotateX( 180deg ) translateZ( 100px ); }'
+    ,'.cubelet-back   { __VENDOR__transform: rotateX( 180deg ) translateZ( 100px ); background: rgba(128,128,128, 0.15); }'
     ,'.cubelet-right  { __VENDOR__transform: rotateY(  90deg ) translateZ( 100px ); }'
     ,'.cubelet-left   { __VENDOR__transform: rotateY( -90deg ) translateZ( 100px ); }'
     ,'.cubelet-top    { __VENDOR__transform: rotateX(  90deg ) translateZ( 100px ); }'
-    ,'.cubelet-bottom { __VENDOR__transform: rotateX( -90deg ) translateZ( 100px ); }'
+    ,'.cubelet-bottom { __VENDOR__transform: rotateX( -90deg ) translateZ( 100px ); background: rgba(128,128,128, 0.15); }'
 ].join('\n');

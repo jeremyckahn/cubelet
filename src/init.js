@@ -6,6 +6,7 @@ var PERSPECTIVE_PX = 1000;
 // PRIVATE STATIC VARIABLES
 //
 var hasPerformedFirstTimeInit = false;
+var $win = $(window);
 
 /** @type {HTMLElement} */
 var cubeletInjectedStyle;
@@ -42,6 +43,44 @@ var getVendorPrefix = function () {
 };
 
 
+/*!
+ * @param {jQuery} $el The Cubelet element.
+ * @param {jQuery.Event} evt
+ */
+function onWindowMousemove ($el, evt) {
+  var clientX = evt.clientX;
+  var clientY = evt.clientY;
+  var deltaX = evt.clientX - $el._lastClientX;
+  var deltaY = evt.clientY - $el._lastClientY;
+  $el._lastClientX = clientX;
+  $el._lastClientY = clientY;
+
+  var coords = $el._cubeletCoordinates;
+  // It seems wrong to subtract deltas from the opposite axis, but it actually
+  // makes for a much more intuitive interaction.  This is intentional.
+  $el.cubeletSetCoords({
+    x: coords.x - deltaY
+    ,y: coords.y + deltaX
+  });
+}
+
+
+/*!
+ * @param {jQuery} $el
+ * @param {jQuery.Event} evt
+ */
+function onCubeletMousedown ($el, evt) {
+  $el._lastClientX = evt.clientX;
+  $el._lastClientY = evt.clientY;
+
+  var proxiedOnWindowMousemove = $.proxy(onWindowMousemove, $win, $el);
+  $win.on('mousemove', proxiedOnWindowMousemove);
+  $win.on('mouseup', function () {
+    $win.off('mousemove', proxiedOnWindowMousemove);
+  });
+}
+
+
 function firstTimeInit () {
   cubeletInjectedStyle = document.createElement('style');
   cubeletInjectedStyle.innerHTML =
@@ -62,7 +101,9 @@ $.fn.cubeletInit = function () {
     hasPerformedFirstTimeInit = true;
   }
 
-  this.cubeletCoordinates_ = { x: 0, y:0, z:0 };
+  this._cubeletCoordinates = { x: 0, y:0, z:0 };
+  this._lastOffsetX = null;
+  this._lastOffsetY = null;
 
   this._$cubeletHtmlFragment = $cubeletBaseHtmlFragment.clone();
   this.append(this._$cubeletHtmlFragment);
@@ -70,8 +111,10 @@ $.fn.cubeletInit = function () {
 
   // TODO: Make this value configurable.
   this.cubeletSetSize(200);
-  this.cubeletSetCoords(this.cubeletCoordinates_);
+  this.cubeletSetCoords(this._cubeletCoordinates);
   this.css(getVendorPrefix() + 'perspective', PERSPECTIVE_PX);
+
+  this._$cubeletCube.on('mousedown', $.proxy(onCubeletMousedown, this, this));
 
   return this;
 };
@@ -94,7 +137,7 @@ $.fn.cubeletSetSize = function (pixelSize) {
  * @return {{x: number, y: number, z: number}}
  */
 $.fn.cubeletGetCoords = function () {
-  return $.extend({}, this.cubeletCoordinates_);
+  return $.extend({}, this._cubeletCoordinates);
 };
 
 
@@ -104,7 +147,7 @@ $.fn.cubeletGetCoords = function () {
  * @return {jQuery}
  */
 $.fn.cubeletSetCoords = function (coordinates) {
-  var cubeletCoordinates = this.cubeletCoordinates_;
+  var cubeletCoordinates = this._cubeletCoordinates;
   $.extend(cubeletCoordinates, coordinates);
 
   var transformString =
