@@ -43,18 +43,7 @@ var getVendorPrefix = function () {
 };
 
 
-/*!
- * @param {jQuery} $el The Cubelet element.
- * @param {jQuery.Event} evt
- */
-function onWindowMousemove ($el, evt) {
-  var clientX = evt.clientX;
-  var clientY = evt.clientY;
-  var deltaX = evt.clientX - $el._lastClientX;
-  var deltaY = evt.clientY - $el._lastClientY;
-  $el._lastClientX = clientX;
-  $el._lastClientY = clientY;
-
+function onDragCube ($el, deltaX, deltaY) {
   var coords = $el._cubeletCoordinates;
   // It seems wrong to subtract deltas from the opposite axis, but it actually
   // makes for a much more intuitive interaction.  This is intentional.
@@ -62,6 +51,25 @@ function onWindowMousemove ($el, evt) {
     x: coords.x - deltaY
     ,y: coords.y + deltaX
   });
+}
+
+
+/*!
+ * @param {jQuery} $el The Cubelet element
+ * @param {HTMLElement} dragTarget The element being dragged
+ * @param {jQuery.Event} evt
+ */
+function onWindowMousemove ($el, dragTarget, evt) {
+  var clientX = evt.clientX;
+  var clientY = evt.clientY;
+  var deltaX = evt.clientX - $el._lastClientX;
+  var deltaY = evt.clientY - $el._lastClientY;
+  $el._lastClientX = clientX;
+  $el._lastClientY = clientY;
+
+  if ($.contains($el._$cubeletCube[0], dragTarget)) {
+    onDragCube($el, deltaX, deltaY);
+  }
 
   $el.trigger('change');
 }
@@ -75,7 +83,8 @@ function onCubeletMousedown ($el, evt) {
   $el._lastClientX = evt.clientX;
   $el._lastClientY = evt.clientY;
 
-  var proxiedOnWindowMousemove = $.proxy(onWindowMousemove, $win, $el);
+  var proxiedOnWindowMousemove =
+      $.proxy(onWindowMousemove, $win, $el, evt.target);
   $win.on('mousemove', proxiedOnWindowMousemove);
   $win.on('mouseup', function () {
     $win.off('mousemove', proxiedOnWindowMousemove);
@@ -109,7 +118,10 @@ $.fn.cubeletInit = function () {
 
   this._$cubeletHtmlFragment = $cubeletBaseHtmlFragment.clone();
   this.append(this._$cubeletHtmlFragment);
+
+  this._$cubeletContainer = this.find('.cubelet-container');
   this._$cubeletCube = this.find('.cubelet-cube');
+  this._$cubeletZRotationHandle = this.find('.cubelet-rotation-handle');
 
   // TODO: Make this value configurable.
   this.cubeletSetSize(100);
@@ -119,7 +131,7 @@ $.fn.cubeletInit = function () {
   this.css('transform', 'translate(-50%, -50%)');
   this.addClass('cubelet');
 
-  this._$cubeletCube.on('mousedown', $.proxy(onCubeletMousedown, this, this));
+  this._$cubeletContainer.on('mousedown', $.proxy(onCubeletMousedown, this, this));
 
   return this;
 };
