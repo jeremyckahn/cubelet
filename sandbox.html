@@ -2,8 +2,11 @@
 <html>
 <head>
   <style>
+    dl {
+      margin: 30px 0;
+    }
     .cubelet-container {
-      margin: 300px auto 0;
+      margin: 200px auto 0;
       overflow: visible;
       position: relative;
       width: 0;
@@ -18,6 +21,14 @@
   </style>
 </head>
 <body>
+  <dl>
+    <dt>rotateX:</dt>
+    <dd class="rotate-x"></dd>
+    <dt>rotateY:</dt>
+    <dd class="rotate-y"></dd>
+    <dt>rotateZ:</dt>
+    <dd class="rotate-z"></dd>
+  </dl>
   <div class="cubelet-container">
     <div class="test-cubelet"></div>
     <img src="img/circle.png" alt="">
@@ -29,6 +40,16 @@
     $(function () {
       window.$cubelet = $('.test-cubelet');
       $cubelet.cubeletInit();
+      $rotateX = $('.rotate-x');
+      $rotateY = $('.rotate-y');
+      $rotateZ = $('.rotate-z');
+      $cubelet.on('change', function () {
+        var coords = $cubelet.cubeletGetCoords();
+        $rotateX.text(coords.x);
+        $rotateY.text(coords.y);
+        $rotateZ.text(coords.z);
+      });
+      $cubelet.trigger('change');
     });
   </script>
 </body>

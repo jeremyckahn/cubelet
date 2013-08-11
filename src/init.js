@@ -62,6 +62,8 @@ function onWindowMousemove ($el, evt) {
     x: coords.x - deltaY
     ,y: coords.y + deltaX
   });
+
+  $el.trigger('change');
 }
 
 
