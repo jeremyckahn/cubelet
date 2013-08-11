@@ -12,11 +12,9 @@
       width: 0;
     }
     .test-cubelet-container img {
-      left: 0;
+      left: -22px;
       position: absolute;
-      top: 0;
-      -webkit-transform: translate(-50%, -50%);
-      -moz-transform: translate(-50%, -50%);
+      top: -22px;
     }
   </style>
 </head>
@@ -40,14 +38,16 @@
     $(function () {
       window.$cubelet = $('.test-cubelet');
       $cubelet.cubeletInit();
-      $rotateX = $('.rotate-x');
-      $rotateY = $('.rotate-y');
-      $rotateZ = $('.rotate-z');
+      var $rotateX = $('.rotate-x');
+      var $rotateY = $('.rotate-y');
+      var $rotateZ = $('.rotate-z');
+      var $img = $('img');
       $cubelet.on('change', function () {
         var coords = $cubelet.cubeletGetCoords();
         $rotateX.text(coords.x);
         $rotateY.text(coords.y);
         $rotateZ.text(coords.z);
+        $img.css('transform', 'rotateX('+ coords.x + 'deg) rotateY('+ coords.y + 'deg) rotateZ('+ coords.z + 'deg)');
       });
       $cubelet.trigger('change');
     });
