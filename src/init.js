@@ -43,6 +43,11 @@ var getVendorPrefix = function () {
 };
 
 
+/*!
+ * @param {jQuery} $el The Cubelet element
+ * @param {number} deltaX How much the mouse moved aling the X axis
+ * @param {number} deltaY How much the mouse moved aling the Y axis
+ */
 function onDragCube ($el, deltaX, deltaY) {
   var coords = $el._cubeletCoordinates;
   // It seems wrong to subtract deltas from the opposite axis, but it actually
@@ -131,7 +136,8 @@ $.fn.cubeletInit = function () {
   this.css('transform', 'translate(-50%, -50%)');
   this.addClass('cubelet');
 
-  this._$cubeletContainer.on('mousedown', $.proxy(onCubeletMousedown, this, this));
+  this._$cubeletContainer.on(
+      'mousedown', $.proxy(onCubeletMousedown, this, this));
 
   return this;
 };
