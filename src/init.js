@@ -114,9 +114,9 @@ $.fn.cubeletInit = function () {
   // TODO: Make this value configurable.
   this.cubeletSetSize(200);
   this.cubeletSetCoords(this._cubeletCoordinates);
-  this.css(getVendorPrefix() + 'perspective', PERSPECTIVE_PX);
+  this.css('perspective', PERSPECTIVE_PX);
   // Center the element
-  this.css(getVendorPrefix() + 'transform', 'translate(-50%, -50%)');
+  this.css('transform', 'translate(-50%, -50%)');
   this.addClass('cubelet');
 
   this._$cubeletCube.on('mousedown', $.proxy(onCubeletMousedown, this, this));
@@ -160,7 +160,7 @@ $.fn.cubeletSetCoords = function (coordinates) {
     + 'deg) rotateY(' + cubeletCoordinates.y
     + 'deg) rotateZ(' + cubeletCoordinates.z
     + 'deg)';
-  this._$cubeletCube.css(getVendorPrefix() + 'transform', transformString);
+  this._$cubeletCube.css('transform', transformString);
 
   return this;
 };
