@@ -61,6 +61,20 @@ function onDragCube ($el, deltaX, deltaY) {
 
 /*!
  * @param {jQuery} $el The Cubelet element
+ * @param {number} deltaX How much the mouse moved aling the X axis
+ * @param {number} deltaY How much the mouse moved aling the Y axis
+ */
+function onDragRotationArm ($el, deltaX, deltaY) {
+  var totalDelta = deltaX + deltaY;
+  var newZRotation = $el.cubeletGetCoords().z + totalDelta;
+  $el.cubeletSetCoords({ z: newZRotation });
+  $el.css(
+      'transform', 'translate(-50%, -50%) rotate(' + newZRotation + 'deg)');
+}
+
+
+/*!
+ * @param {jQuery} $el The Cubelet element
  * @param {HTMLElement} dragTarget The element being dragged
  * @param {jQuery.Event} evt
  */
@@ -74,6 +88,8 @@ function onWindowMousemove ($el, dragTarget, evt) {
 
   if ($.contains($el._$cubeletCube[0], dragTarget)) {
     onDragCube($el, deltaX, deltaY);
+  } else if ($.contains($el._$cubeletZRotationArm[0], dragTarget)) {
+    onDragRotationArm($el, deltaX, deltaY);
   }
 
   $el.trigger('change');
@@ -126,6 +142,7 @@ $.fn.cubeletInit = function () {
 
   this._$cubeletContainer = this.find('.cubelet-container');
   this._$cubeletCube = this.find('.cubelet-cube');
+  this._$cubeletZRotationArm = this.find('.cubelet-rotation-arm');
   this._$cubeletZRotationHandle = this.find('.cubelet-rotation-handle');
 
   // TODO: Make this value configurable.
@@ -176,7 +193,6 @@ $.fn.cubeletSetCoords = function (coordinates) {
   var transformString =
     'rotateX(' + cubeletCoordinates.x
     + 'deg) rotateY(' + cubeletCoordinates.y
-    + 'deg) rotateZ(' + cubeletCoordinates.z
     + 'deg)';
   this._$cubeletCube.css('transform', transformString);
 
