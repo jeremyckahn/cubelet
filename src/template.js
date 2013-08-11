@@ -11,7 +11,9 @@ var htmlTemplate = [
 
 
 var cssTemplate = [
-    '.cubelet-cube { '
+    '.cubelet { '
+      ,'margin: 0 auto; }'
+    ,'.cubelet-cube { '
       ,'__VENDOR__transform: translateZ(-100px) rotateY(0deg) rotateX(0deg); '
       ,'__VENDOR__transform-style: preserve-3d;'
       ,'height: 100%;'

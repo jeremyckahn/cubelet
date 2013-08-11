@@ -2,19 +2,32 @@
 <html>
 <head>
   <style>
-    .cubelet {
-      margin: 200px auto 0;
+    .cubelet-container {
+      margin: 300px auto 0;
+      overflow: visible;
+      position: relative;
+      width: 0;
+    }
+    .cubelet-container img {
+      left: 0;
+      position: absolute;
+      top: 0;
+      -webkit-transform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
     }
   </style>
 </head>
 <body>
-  <div class="cubelet"></div>
+  <div class="cubelet-container">
+    <div class="test-cubelet"></div>
+    <img src="img/circle.png" alt="">
+  </div>
   <script src="/bower_components/jquery/jquery.min.js"></script>
   <script src="/src/template.js"></script>
   <script src="/src/init.js"></script>
   <script>
     $(function () {
-      window.$cubelet = $('.cubelet');
+      window.$cubelet = $('.test-cubelet');
       $cubelet.cubeletInit();
     });
   </script>

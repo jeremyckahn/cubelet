@@ -113,6 +113,9 @@ $.fn.cubeletInit = function () {
   this.cubeletSetSize(200);
   this.cubeletSetCoords(this._cubeletCoordinates);
   this.css(getVendorPrefix() + 'perspective', PERSPECTIVE_PX);
+  // Center the element
+  this.css(getVendorPrefix() + 'transform', 'translate(-50%, -50%)');
+  this.addClass('cubelet');
 
   this._$cubeletCube.on('mousedown', $.proxy(onCubeletMousedown, this, this));
 
