@@ -112,7 +112,7 @@ $.fn.cubeletInit = function () {
   this._$cubeletCube = this.find('.cubelet-cube');
 
   // TODO: Make this value configurable.
-  this.cubeletSetSize(200);
+  this.cubeletSetSize(100);
   this.cubeletSetCoords(this._cubeletCoordinates);
   this.css('perspective', PERSPECTIVE_PX);
   // Center the element
