@@ -1,0 +1,15 @@
+{
+  "name": "jquery-cubelet",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jeremyckahn/cubelet",
+  "author": "Jeremy Kahn <jeremyckahn@gmail.com>",
+  "description": "A jQuery widget for graphically rotating a cube and working with its coordinates",
+  "devDependencies": {
+    "grunt": "~0.4.0",
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-concat": "~0.1.3",
+    "grunt-contrib-uglify": "~0.1.2",
+    "grunt-dox": "~0.5.0"
+  },
+  "license": "MIT"
+}
