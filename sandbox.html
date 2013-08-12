@@ -33,6 +33,11 @@
     <img src="img/circle.png" alt="">
   </div>
   <script src="/bower_components/jquery/jquery.min.js"></script>
+  <script>
+    if (typeof jQuery === 'undefined') {
+      document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"><\/script>');
+    }
+  </script>
   <script src="/src/template.js"></script>
   <script src="/src/init.js"></script>
   <script>

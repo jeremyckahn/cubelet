@@ -160,7 +160,7 @@ $.fn.cubeletInit = function () {
 };
 
 
-/**
+/*!
  * @param {number} pixelSize The height and width in pixels that the cube should have.
  * @return {jQuery}
  */
