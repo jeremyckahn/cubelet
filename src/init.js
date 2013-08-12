@@ -200,7 +200,30 @@ $.fn.cubeletSetCoords = function (coordinates) {
 };
 
 
-$.fn.cubeletEnableEdit = function () {};
+/**
+ * Show the Cubelet control.
+ * @return {jQuery}
+ */
+$.fn.cubeletShow = function () {
+  this._$cubeletContainer.show();
+  return this;
+};
 
 
-$.fn.cubeletDisableEdit = function () {};
+/**
+ * Hide the Cubelet control.
+ * @return {jQuery}
+ */
+$.fn.cubeletHide = function () {
+  this._$cubeletContainer.hide();
+  return this;
+};
+
+
+/**
+ * Whether the Cubelet is showing or not.
+ * @return {boolean}
+ */
+$.fn.cubeletIsShown = function () {
+  return this._$cubeletContainer.is(':visible');
+};

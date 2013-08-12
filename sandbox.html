@@ -19,6 +19,7 @@
   </style>
 </head>
 <body>
+  <p>Press the Space bar to hide and show the Cubelet control.</p>
   <dl>
     <dt>rotateX:</dt>
     <dd class="rotate-x"></dd>
@@ -49,6 +50,11 @@
         $rotateZ.text(coords.z);
         $img.css('transform', 'rotateX('+ coords.x + 'deg) rotateY('+ coords.y + 'deg) rotateZ('+ coords.z + 'deg)');
       });
+      $(window).on('keydown', function (evt) {
+        if (evt.which == 32) { // Space bar
+          $cubelet.cubeletIsShown() ? $cubelet.cubeletHide() : $cubelet.cubeletShow();
+        }
+      })
       $cubelet.trigger('change');
     });
   </script>
