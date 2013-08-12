@@ -22,7 +22,7 @@ var $cubeletBaseHtmlFragment;
  */
 var getVendorPrefix = function () {
   var style = document.body.style;
-  var prefix;
+  var prefix = '';
 
   if ('-webkit-transform' in style) {
     prefix = '-webkit-';
