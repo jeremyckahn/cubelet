@@ -1,8 +1,3 @@
-// CONSTANTS
-//
-var PERSPECTIVE_PX = 1000;
-
-
 // PRIVATE STATIC VARIABLES
 //
 var hasPerformedFirstTimeInit = false;
@@ -86,7 +81,8 @@ function onWindowMousemove ($el, dragTarget, evt) {
   $el._lastClientX = clientX;
   $el._lastClientY = clientY;
 
-  if ($.contains($el._$cubeletCube[0], dragTarget)) {
+  if ($.contains($el._$cubeletCube[0], dragTarget)
+      || $el._$cubeletContainer[0] === dragTarget) {
     onDragCube($el, deltaX, deltaY);
   } else if ($.contains($el._$cubeletZRotationArm[0], dragTarget)) {
     onDragRotationArm($el, deltaX, deltaY);
@@ -148,7 +144,6 @@ $.fn.cubeletInit = function () {
   // TODO: Make this value configurable.
   this.cubeletSetSize(100);
   this.cubeletSetCoords(this._cubeletCoordinates);
-  this.css('perspective', PERSPECTIVE_PX);
   // Center the element
   this.css('transform', 'translate(-50%, -50%)');
   this.addClass('cubelet');
