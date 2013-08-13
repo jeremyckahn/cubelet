@@ -123,7 +123,7 @@ function firstTimeInit () {
 // JQUERY METHODS
 //
 /**
- * Creates a Cubelet widget.  The elements that this method is called upon are treated as containers — it is recommended that these containers are empty when this method is called.  The cubelet is not shown by this method, just initialized.  To show the cubelet, call ['cubeletShow'](#cubeletShow).
+ * Creates a Cubelet widget.  The elements that this method is called upon are treated as containers — it is recommended that these containers are empty when this method is called.  The Cubelet is not shown by this method, just initialized.  To show the Cubelet, call [`cubeletShow`](#cubeletShow).
  *
  * @return {jQuery}
  */
@@ -146,8 +146,8 @@ $.fn.cubeletInit = function () {
   this._$cubeletZRotationHandle = this.find('.cubelet-rotation-handle');
 
   this.css({
-      'height': CUBELET_SIZE + 'px'
-      ,'width': CUBELET_SIZE + 'px'
+      height: CUBELET_SIZE + 'px'
+      ,width: CUBELET_SIZE + 'px'
     });
 
   this.addClass('cubelet');
@@ -161,9 +161,13 @@ $.fn.cubeletInit = function () {
 
 
 /**
- * Get the current rotation coordinates of the cube.
+ * Get the current rotation coordinates of the cube.  The returned object has the format:
  *
- * @return {{x: number, y: number, z: number}}
+ * ```
+ * { x: number, y: number, z: number }
+ * ```
+ *
+ * @return {Object}
  */
 $.fn.cubeletGetCoords = function () {
   return $.extend({}, this._cubeletCoordinates);
@@ -171,9 +175,17 @@ $.fn.cubeletGetCoords = function () {
 
 
 /**
- * Set the rotation coordinates of the cubelet.  Sets the internal state of the widget as well as the inline CSS `rotate` styles.
+ * Set the rotation coordinates of the Cubelet.  Sets the internal state of the widget as well as the inline CSS `rotate` styles.
  *
- * @param {{x: number=, y: number=, z: number=}} The coordinates to set on the cube.  You can supply all coordinates or only the ones you want to modify.
+ * The `coordinates` parameter accepts any object with the following format:
+ *
+ * ```
+ * { x: number=, y: number=, z: number= }
+ * ```
+ *
+ * You can omit any parameters you don't want to set — those properties will be unchanged by this method.
+ *
+ * @param {Object} coordinates The coordinates to set on the cube.
  * @return {jQuery}
  */
 $.fn.cubeletSetCoords = function (coordinates) {
@@ -193,7 +205,8 @@ $.fn.cubeletSetCoords = function (coordinates) {
 
 
 /**
- * Show the Cubelet control.
+ * Show the Cubelet widget.
+ *
  * @return {jQuery}
  */
 $.fn.cubeletShow = function () {
@@ -203,7 +216,8 @@ $.fn.cubeletShow = function () {
 
 
 /**
- * Hide the Cubelet control.
+ * Hide the Cubelet widget.
+ *
  * @return {jQuery}
  */
 $.fn.cubeletHide = function () {
@@ -214,6 +228,7 @@ $.fn.cubeletHide = function () {
 
 /**
  * Whether the Cubelet is showing or not.
+ *
  * @return {boolean}
  */
 $.fn.cubeletIsShown = function () {
@@ -222,7 +237,9 @@ $.fn.cubeletIsShown = function () {
 
 
 /**
- * @param {jQuery} $el The elements to apply the cubelet's current rotation to.
+ * Takes the Cubelet's current rotation coordinates and apply them to another jQuery collection.  Note that this will overwrite any inline `transform` styles currently set on these elements.
+ *
+ * @param {jQuery} $el The elements to apply the Cubelet's current rotation to.
  */
 $.fn.cubeletApplyRotationToElement = function ($el) {
   var coords = this.cubeletGetCoords();
