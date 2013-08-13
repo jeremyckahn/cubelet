@@ -44,6 +44,7 @@
     $(function () {
       window.$cubelet = $('.test-cubelet');
       $cubelet.cubeletInit();
+      $cubelet.cubeletShow();
       var $rotateX = $('.rotate-x');
       var $rotateY = $('.rotate-y');
       var $rotateZ = $('.rotate-z');
@@ -53,7 +54,7 @@
         $rotateX.text(coords.x);
         $rotateY.text(coords.y);
         $rotateZ.text(coords.z);
-        $img.css('transform', 'rotateX('+ coords.x + 'deg) rotateY('+ coords.y + 'deg) rotateZ('+ coords.z + 'deg)');
+        $cubelet.cubeletApplyRotationToElement($img);
       });
       $(window).on('keydown', function (evt) {
         if (evt.which == 32) { // Space bar

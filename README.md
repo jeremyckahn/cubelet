@@ -1,17 +1,5 @@
-# Vague API ideas
+# jQuery Cubelet
 
-## Don't use this widget yet!  It's not done!
+## A widget for prototyping CSS rotation transformations
 
-````javascript
-var $cubelet = $('.cubelet');
-$cubelet.cubeletInit();
-
-var coords = $cubelet.cubeletGetCoords();
-console.log(coords); // { x: 0, y: 0, z: 0 }
-
-// Shows drag handles
-$cubelet.cubeletEnableEdit();
-
-// Hides drag handles
-$cubelet.cubeletDisableEdit();
-````
+A cubelet is a graphical widget for defining the three axes of rotation for an element.  This is useful for prototyping how an element might look with the CSS `transform` properties `rotateX`, `rotateY`, and `rotateY` applied.
