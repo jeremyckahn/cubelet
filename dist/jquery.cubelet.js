@@ -19,9 +19,7 @@ var htmlTemplate = [
 
 
 var cssTemplate = [
-    '.cubelet { '
-      ,'margin: 0 auto; }'
-    ,'.cubelet-container,'
+    '.cubelet-container,'
     ,'.cubelet-cube {'
       ,'height: 100%;'
       ,'width: 100%; }'
@@ -195,7 +193,7 @@ function firstTimeInit () {
 // JQUERY METHODS
 //
 /**
- * Creates a Cubelet widget.  The elements that this method is called upon are treated as containers — it is recommended that these containers are empty when this method is called.  The Cubelet is not shown by this method, just initialized.  To show the Cubelet, call [`cubeletShow`](#cubeletShow).
+ * Creates a Cubelet widget.  The elements that this method is called upon are treated as containers — it is recommended that these containers are empty when this method is called.
  *
  * @return {jQuery}
  */
@@ -226,7 +224,6 @@ $.fn.cubeletInit = function () {
   this.cubeletSetCoords(this._cubeletCoordinates);
   this._$cubeletContainer.on(
       'mousedown', $.proxy(onCubeletMousedown, this, this));
-  this.cubeletHide();
 
   return this;
 };
