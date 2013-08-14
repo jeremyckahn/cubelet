@@ -2,6 +2,8 @@
 
 ## A widget for prototyping CSS rotations
 
+  * [__API documentation__](http://jeremyckahn.github.io/cubelet/dist/doc/src/init.js.html#cubeletInit)
+
 jQuery Cubelet (or just Cubelet) is a jQuery plugin that provides a graphical widget for defining the three axes of rotation for an element.  This is useful for prototyping how an element might look with the CSS `transform` properties `rotateX`, `rotateY`, and `rotateZ` applied.
 
 This widget puts a 3D cube on a web page which can be rotated with the mouse.  Clicking and dragging the cube will modify the X and Y axes, and dragging the "rotation arm" that extends from the center of the cube will modify the Z axis.
@@ -38,7 +40,7 @@ To use Cubelet:
   <div class="test-cubelet"></div>
   <!-- Load jQuery and the plugin -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-  <script src="./dist/jquery.cubelet.min.js"></script>
+  <script src="http://jeremyckahn.github.io/cubelet/dist/jquery.cubelet.min.js"></script>
   <script>
     // Initialize the widget
     var $cubelet = $('.test-cubelet');
@@ -48,7 +50,7 @@ To use Cubelet:
 </html>
 ````
 
-## What's with all the inline styles?
+## What's with [all the inline styles](src/template.js)?
 
 While inlining an entire stylesheet inside of JavaScript is usually a major antipattern, it makes sense for Cubelet.  The 3D effects require quite a bit of CSS, not to mention vendor prefixing.  Much of the inlined CSS is needed for basic functionality of the widget, not skinning, therefore should probably not be modified.  The advantage of inlining CSS like this is that you only need to worry about loading Cubelet as a single file.
 
