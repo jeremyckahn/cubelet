@@ -1,7 +1,11 @@
 {
   "name": "jquery-cubelet",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "homepage": "https://github.com/jeremyckahn/cubelet",
+  "author": "Jeremy Kahn <jeremyckahn@gmail.com>",
+  "description": "A jQuery widget for graphically rotating a cube and working with its coordinates",
   "dependencies": {
     "jquery": "~2.0.2"
-  }
+  },
+  "license": "MIT"
 }

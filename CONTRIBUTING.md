@@ -21,7 +21,7 @@ these two files must be kept in sync.
 
 ## Building
 
-Cubelet uses [Grunt](http://gruntjs.com/) (version 0.4.1 or later, globally
+Cubelet uses [Grunt](http://gruntjs.com/) (version 0.4.0 or later, globally
 installed) to generate the distributable binaries.  If you make any changes to
 the source code, please rebuild the binaries with:
 

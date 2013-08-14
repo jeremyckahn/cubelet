@@ -8,6 +8,8 @@ jQuery Cubelet (or just Cubelet) is a jQuery plugin that provides a graphical wi
 
 This widget puts a 3D cube on a web page which can be rotated with the mouse.  Clicking and dragging the cube will modify the X and Y axes, and dragging the "rotation arm" that extends from the center of the cube will modify the Z axis.
 
+![A preview of jQuery Cubelet](img/cubelet_preview.png)
+
 This widget was created specifically for use in [Stylie](http://jeremyckahn.github.io/stylie/), but may have uses elsewhere.  Admittedly it is not terribly flexible in its current state, as I didn't really know what other use cases it might have.  If there are changes you need to make Cubelet more compatible with your project, please [make a feature request](https://github.com/jeremyckahn/cubelet/issues) or submit a Pull Request.
 
 ## Compatibility
@@ -39,7 +41,7 @@ To use Cubelet:
   <!-- Container element for the Cubelet -->
   <div class="test-cubelet"></div>
   <!-- Load jQuery and the plugin -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
   <script src="http://jeremyckahn.github.io/cubelet/dist/jquery.cubelet.min.js"></script>
   <script>
     // Initialize the widget

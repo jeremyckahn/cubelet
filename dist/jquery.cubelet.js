@@ -1,4 +1,4 @@
-/*! jquery-cubelet - v0.0.0 - 2013-08-13 - https://github.com/jeremyckahn/cubelet */
+/*! jquery-cubelet - v0.0.1 - 2013-08-14 - https://github.com/jeremyckahn/cubelet */
 ;(function ($) {
 
 var htmlTemplate = [
