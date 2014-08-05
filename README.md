@@ -4,9 +4,9 @@
 
   * [__API documentation__](http://jeremyckahn.github.io/cubelet/dist/doc/src/init.js.html#cubeletInit)
 
-jQuery Cubelet (or just Cubelet) is a jQuery plugin that provides a graphical widget for defining the three axes of rotation for an element.  This is useful for prototyping how an element might look with the CSS `transform` properties `rotateX`, `rotateY`, and `rotateZ` applied.
+jQuery Cubelet (or just Cubelet) is a jQuery plugin that provides a graphical widget for defining the three axes of rotation and scale for an element.  This is useful for prototyping how an element might look with the CSS `transform` properties `rotateX`, `rotateY`, `rotateZ`, and `scale` applied.
 
-This widget puts a 3D cube on a web page which can be rotated with the mouse.  Clicking and dragging the cube will modify the X and Y axes, and dragging the "rotation arm" that extends from the center of the cube will modify the Z axis.
+This widget puts a 3D cube on a web page which can be manipulated with the mouse.  Clicking and dragging the cube will modify the X and Y axes, and dragging the "rotation arm" that extends from the center of the cube will modify the Z axis.  Scrolling the mouse wheel while hovering over the cube will modify the scale.
 
 ![A preview of jQuery Cubelet](img/cubelet_preview.png)
 

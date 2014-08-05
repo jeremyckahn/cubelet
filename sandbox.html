@@ -27,12 +27,15 @@
     <dd class="rotate-y"></dd>
     <dt>rotateZ:</dt>
     <dd class="rotate-z"></dd>
+    <dt>scale:</dt>
+    <dd class="scale"></dd>
   </dl>
   <div class="test-cubelet-container">
     <div class="test-cubelet"></div>
     <img src="img/circle.png" alt="">
   </div>
   <script src="/bower_components/jquery/jquery.min.js"></script>
+  <script src="/bower_components/jquery-mousewheel/jquery.mousewheel.js"></script>
   <script>
     if (typeof jQuery === 'undefined') {
       document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"><\/script>');
@@ -47,12 +50,14 @@
       var $rotateX = $('.rotate-x');
       var $rotateY = $('.rotate-y');
       var $rotateZ = $('.rotate-z');
+      var $scale = $('.scale');
       var $img = $('img');
       $cubelet.on('change', function () {
         var coords = $cubelet.cubeletGetCoords();
         $rotateX.text(coords.x);
         $rotateY.text(coords.y);
         $rotateZ.text(coords.z);
+        $scale.text(coords.scale);
         $cubelet.cubeletApplyRotationToElement($img);
       });
       $(window).on('keydown', function (evt) {
