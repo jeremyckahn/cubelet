@@ -1,16 +1,5 @@
-/*! jquery-cubelet - v0.2.0 - 2015-01-12 - https://github.com/jeremyckahn/cubelet */
-;(function (factory) {
-  if (typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module.
-    define(['jquery'], factory);
-  } else if (typeof exports === 'object') {
-    // Node/CommonJS style for Browserify
-    module.exports = factory;
-  } else {
-    // Browser globals
-    factory(jQuery);
-  }
-} (function ($) {
+/*! jquery-cubelet - v0.3.0 - 2015-01-30 - https://github.com/jeremyckahn/cubelet */
+define(['jquery'], function ($) {
 
 var htmlTemplate = [
     '<div class="cubelet-container">'
@@ -404,4 +393,4 @@ $.fn.cubeletApplyRotationToElement = function ($el) {
         + 'deg) scale(' + coords.scale + ')');
 };
 
-}));
+});
