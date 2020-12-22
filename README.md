@@ -56,6 +56,12 @@ To use Cubelet:
 
 While inlining an entire stylesheet inside of JavaScript is usually a major antipattern, it makes sense for Cubelet.  The 3D effects require quite a bit of CSS, not to mention vendor prefixing.  Much of the inlined CSS is needed for basic functionality of the widget, not skinning, therefore should probably not be modified.  The advantage of inlining CSS like this is that you only need to worry about loading Cubelet as a single file.
 
+## Building
+
+```sh
+npx grunt build
+```
+
 ## Credit
 
 The original 3D cube is adapted from work by [David DeSandro](http://desandro.github.com/3dtransforms).
