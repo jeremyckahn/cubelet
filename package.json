@@ -4,10 +4,14 @@
   "homepage": "https://github.com/jeremyckahn/cubelet",
   "author": "Jeremy Kahn <jeremyckahn@gmail.com>",
   "description": "A jQuery widget for graphically rotating a cube and working with its coordinates",
+  "scripts": {
+    "build": "./node_modules/.bin/grunt build"
+  },
   "devDependencies": {
     "grunt": "~0.4.0",
-    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-cli": "^1.3.2",
     "grunt-contrib-concat": "~0.1.3",
+    "grunt-contrib-jshint": "~0.1.1",
     "grunt-contrib-uglify": "~0.9.1",
     "grunt-dox": "~0.5.0"
   },

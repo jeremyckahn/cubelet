@@ -59,7 +59,7 @@ While inlining an entire stylesheet inside of JavaScript is usually a major anti
 ## Building
 
 ```sh
-npx grunt build
+npm run build
 ```
 
 ## Credit
