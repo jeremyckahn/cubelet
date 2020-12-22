@@ -21,6 +21,12 @@ $win.on('mousemove', function (evt) {
   trackedMouseCoords.y = evt.pageY;
 });
 
+$win.on('touchmove', function (evt) {
+  var touch = evt.originalEvent.touches[0];
+  trackedMouseCoords.x = touch.pageX;
+  trackedMouseCoords.y = touch.pageY;
+});
+
 
 // PRIVATE STATIC FUNCTIONS
 //
@@ -78,6 +84,33 @@ function onDragRotationArm ($el, deltaX, deltaY) {
   $el.cubeletSetCoords({ z: newZRotation });
 }
 
+/*!
+ * @param {jQuery.Event|Event} evt
+ */
+function getPointerCoordinatesFromEvent (evt) {
+  var clientX, clientY, pageX, pageY;
+
+  if (evt.type === 'touchmove') {
+    var touch = evt.touches[0];
+    pageX = touch.pageX;
+    pageY = touch.pageY;
+    clientX = touch.clientX;
+    clientY = touch.clientY;
+  } else {
+    pageX = evt.pageX;
+    pageY = evt.pageY;
+    clientX = evt.clientX;
+    clientY = evt.clientY;
+  }
+
+  return {
+    clientX: clientX,
+    clientY: clientY,
+    pageX: pageX,
+    pageY: pageY
+  };
+}
+
 
 /*!
  * @param {jQuery} $el The Cubelet element
@@ -85,10 +118,16 @@ function onDragRotationArm ($el, deltaX, deltaY) {
  * @param {jQuery.Event} evt
  */
 function onWindowMousemove ($el, dragTarget, evt) {
-  var clientX = evt.clientX;
-  var clientY = evt.clientY;
-  var deltaX = evt.clientX - $el._lastClientX || 0;
-  var deltaY = evt.clientY - $el._lastClientY || 0;
+  if (evt.type === 'touchmove') {
+    evt.preventDefault();
+  }
+
+  var pointerCoordinates = getPointerCoordinatesFromEvent(evt);
+  var clientX = pointerCoordinates.clientX;
+  var clientY = pointerCoordinates.clientY;
+  var deltaX = pointerCoordinates.clientX - $el._lastClientX || 0;
+  var deltaY = pointerCoordinates.clientY - $el._lastClientY || 0;
+
   $el._lastClientX = clientX;
   $el._lastClientY = clientY;
 
@@ -107,17 +146,27 @@ function onWindowMousemove ($el, dragTarget, evt) {
  * @param {jQuery} $el
  * @param {jQuery.Event} evt
  */
-function onCubeletMousedown ($el, evt) {
+function onCubeletPointerMoveStart ($el, evt) {
   $el._lastClientX = evt.clientX;
   $el._lastClientY = evt.clientY;
   $el._isDragging = true;
 
   var proxiedOnWindowMousemove =
       $.proxy(onWindowMousemove, $win, $el, evt.target);
+
   $win.on('mousemove', proxiedOnWindowMousemove);
-  $win.on('mouseup', function () {
+  $win.one('mouseup', function () {
     $el._isDragging = false;
     $win.off('mousemove', proxiedOnWindowMousemove);
+  });
+
+  // Can't use jQuery to bind to touchmove since it needs passive: false.
+  // Taken from: https://github.com/inuyaksa/jquery.nicescroll/issues/799#issuecomment-522275951
+  window.addEventListener('touchmove', proxiedOnWindowMousemove, { passive: false });
+
+  $win.one('touchend', function () {
+    $el._isDragging = false;
+    window.removeEventListener('touchmove', proxiedOnWindowMousemove);
   });
 }
 
@@ -144,7 +193,7 @@ function onWindowMousewheel ($el, evt, delta, deltaX, deltaY) {
  * @param {jQuery} $el The Cubelet.
  * @param {jQuery.Event} evt
  */
-function onCubeletMousemove ($el, evt) {
+function onCubeletPointerMove ($el, evt) {
   // Don't block $win's mousemove handler unless the user is focused on the
   // Cubelet
   if ($el._isDragging) {
@@ -210,10 +259,16 @@ $.fn.cubeletInit = function () {
 
   this.addClass('cubelet');
   this.cubeletSetCoords(this._cubeletCoordinates);
+
   this._$cubeletContainer.on(
-      'mousedown', $.proxy(onCubeletMousedown, this, this));
+      'mousedown', $.proxy(onCubeletPointerMoveStart, this, this));
   this._$cubeletContainer.on(
-      'mousemove', $.proxy(onCubeletMousemove, this, this));
+      'mousemove', $.proxy(onCubeletPointerMove, this, this));
+
+  this._$cubeletContainer.on(
+      'touchstart', $.proxy(onCubeletPointerMoveStart, this, this));
+  this._$cubeletContainer.on(
+      'touchmove', $.proxy(onCubeletPointerMove, this, this));
 
   return this;
 };
