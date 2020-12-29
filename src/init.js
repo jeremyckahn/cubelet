@@ -173,13 +173,11 @@ function onCubeletPointerMoveStart ($el, evt) {
 
 /*!
  * @param {jQuery} $el The Cubelet, not the window.
- * @param {jQuery.Event} evt
- * @param {number} delta
- * @param {number} deltaX
- * @param {number} deltaY
+ * @param {WheelEvent} evt
  */
-function onWindowMousewheel ($el, evt, delta, deltaX, deltaY) {
+function onWindowMousewheel ($el, evt) {
   evt.preventDefault();
+  var deltaY = evt.deltaY;
   var currentScale = $el._cubeletCoordinates.scale;
   var adjustedDelta = deltaY / SCALE_DIVISOR;
   var newScale = +(currentScale + adjustedDelta).toFixed(4);
@@ -202,18 +200,18 @@ function onCubeletPointerMove ($el, evt) {
     evt.stopPropagation();
   }
 
-  var oldProxiedOnWindowMousewheel = $el._proxiedOnWindowMousewheel;
+  var oldProxiedOnWindowWheel = $el._proxiedOnWindowMousewheel;
 
-  if (oldProxiedOnWindowMousewheel) {
-    $win.off('mousewheel', oldProxiedOnWindowMousewheel);
+  if (oldProxiedOnWindowWheel) {
+    window.removeEventListener('wheel', oldProxiedOnWindowWheel);
   }
 
   var proxiedOnWindowMousewheel = $.proxy(onWindowMousewheel, $el, $el);
   $el._proxiedOnWindowMousewheel = proxiedOnWindowMousewheel;
 
-  $win.on('mousewheel', proxiedOnWindowMousewheel);
+  window.addEventListener('wheel', proxiedOnWindowMousewheel, { passive: false });
   $win.one('mousemove', function () {
-    $win.off('mousewheel', proxiedOnWindowMousewheel);
+    window.removeEventListener('wheel', oldProxiedOnWindowWheel);
   });
 }
 
@@ -329,7 +327,7 @@ $.fn.cubeletShow = function () {
   this._$cubeletContainer.show();
 
   // If the mouse is already over the Cubelet when it is shown, start listening
-  // for mousewheel interactions (which is achieved by triggering the mousemove
+  // for wheel interactions (which is achieved by triggering the mousemove
   // event.)
   var hoveredEl = document.elementFromPoint(
       trackedMouseCoords.x, trackedMouseCoords.y);
