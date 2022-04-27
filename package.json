@@ -8,7 +8,7 @@
     "build": "./node_modules/.bin/grunt build"
   },
   "devDependencies": {
-    "grunt": "~0.4.0",
+    "grunt": "~1.5.2",
     "grunt-cli": "^1.3.2",
     "grunt-contrib-concat": "~0.1.3",
     "grunt-contrib-jshint": "~0.1.1",
